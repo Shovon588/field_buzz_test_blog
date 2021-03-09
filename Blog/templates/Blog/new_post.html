@@ -1,0 +1,18 @@
+{% extends 'Blog/base.html' %}
+{%block title_block%}New Post{% endblock %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <h3 class="text-center mb-5">Create a new post</h3>
+
+    <form method="post" class="text-center mx-auto" class="mt-5">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" class="btn btn-info" value="Post">
+    </form>
+</div>
+
+
+
+{% endblock %}

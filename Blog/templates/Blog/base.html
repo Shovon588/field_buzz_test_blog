@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{%block title_block%}{% endblock %}</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  {# Custom CSS#}
+  <!-- <link rel="stylesheet" href="{% static 'css/blog.css' %}"> -->
+
+  {# Fonts#}
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Sigmar+One&display=swap" rel="stylesheet">
+
+  <style>
+    input{
+      padding: 7px;
+      outline: none;
+    }
+    .helptext{
+      display: none;
+    }
+    #id_comment, #id_post{
+      height: 100px;
+      padding: 7px;
+      outline: none;
+    }
+  </style>
+
+<body class='loader'>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+
+    <div class="col-md-8">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light techfont custom-navbar">
+        <a style="font-size:28px; font-family: 'Sigmar One', cursive;" class="navbar-brand big-brand" href="{% url 'home' %}">FieldBuzz</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav navbar-center" style="font-size:17px">
+            {% if user.is_authenticated %}
+            <a class="nav-item nav-link active" style="font-family: 'Fredoka One', cursive;" href="{% url 'new-post' %}">New Posts</a>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link active dropdown-toggle" style="font-family: 'Fredoka One', cursive;" href="#" id}"navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{user.username}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="font-size: 17px; font-family: 'Fredoka One', cursive;">
+                  <a class="nav-item nav-link active" href="{% url 'my-post' %}">My Posts</a>
+                  <a class="nav-item nav-link active" href="{% url 'user-profile' user.username %}">Profile</a>
+
+                  <div class="dropdown-divider"></div>
+                    <a class="nav-item nav-link active" href="{% url 'logout' %}">Log out</a>
+                </div>
+              </li>
+            {% else %}
+              <a class='nav-item nav-link active' style="font-family: 'Sigmar One', cursive;" href="{% url 'login' %}">Login</a>
+              <a class='nav-item nav-link active' style="font-family: 'Sigmar One', cursive;" href="{% url 'signup' %}">Signup</a>
+              
+            {% endif %}
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="col-md-2"></div>
+  </div>
+</div>
+
+
+  <div class="content container">
+    <div class="row">
+      <div class="col-md-2"></div>
+
+      <div class="col-md-8">
+        <div class="blog_posts">
+          {% block content %}
+
+          {% endblock %}
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+
+    </div>
+  </div>
+
+  {% block footer_scripts %}
+    <script>
+      
+
+    </script>
+    {% endblock footer_scripts %}
+
+  {# SCRIPTS#}
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <!-- <script type="text/javascript" src="{% static 'js/blog.js' %}"></script> -->
+
+</body>
+
+</html>

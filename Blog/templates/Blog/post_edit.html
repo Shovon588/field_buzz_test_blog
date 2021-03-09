@@ -1,0 +1,22 @@
+{% extends 'Blog/base.html' %}
+{%block title_block%}Edit Post{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center mt-5">Edit your post!</h1>
+
+<form method="post" class="mt-5">
+  {% csrf_token %}
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Title:</span>
+    </div>
+    <input type="text" class="form-control" style="min-height: 50px;" name='title' value="{{post.title}}" required>
+  </div>
+  <textarea class="editable"  rows="10" name='text' required>{{post.post|safe|linebreaksbr}}</textarea>
+
+  <input type="submit" class="btn btn-primary float-right mt-3 mb-5" value="Edit">
+</form>
+
+
+{% endblock %}

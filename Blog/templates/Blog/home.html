@@ -1,0 +1,72 @@
+{% extends 'Blog/base.html' %}
+{%block title_block%}Homepage{% endblock %}
+
+{% block content %}
+{% if messages %}
+  {% for msg in messages %}
+  <div class="alert alert-danger text-center">
+    {{msg}}
+  </div>
+  {% endfor %}
+{% endif %}
+
+
+<div class="centerstage">
+  {% for post in page_obj %}
+    <div class="card my-5">
+      <div class="card-header">
+        <a class="posttitle" href="{% url 'post-detail' post.slug %}">{{post.title}}</a>
+        <a class="float-right" href="{% url 'user-profile' post.user %}">Author: {{post.user}}</a>
+      </div>
+      <div class="card-body">
+        {% if post.post|length > 160 %}
+          <p class="text-justify postcontent">{{post.post|safe|linebreaksbr|truncatechars:160}}</p>
+          <span class="float-right">
+            <a class="text-info" href="{% url 'post-detail' post.slug%}">Read post...</a>
+          </span>
+        {% else %}
+          <p class="text-justify postcontent">{{post.post|safe|linebreaksbr}}</p>
+          <span class="float-right">
+            <a class="text-info" href="{% url 'post-detail' post.slug%}">Read post...</a>
+          </span>
+        {% endif %}
+        
+      </div>
+      <div class="card-footer date">
+        <p class="text-muted">Posted: {{post.created_at|date:'d-M, Y'}} (<span class="text-success">{{ post.readerinfos.count }} view{{ post.readerinfos.count|pluralize }}</span>)
+          {% if post.comments.all %}
+          <span class="float-right">
+            <a href="{% url 'post-detail' post.slug %}">{{ post.comments.count }} comment{{post.comments.count|pluralize}}</a>
+          </span>
+          {% endif %}
+        </p>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+
+<div class="my-5 p-3 text-center" style="font-size: 20px; font-weight: bold">
+  <center>
+    <span class="step-links text-center">
+        {% if page_obj.has_previous %}
+            <a class="text-danger" href="?page=1">&laquo; First</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% if page_obj.has_previous or page_obj.has_next %}
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a class="text-danger" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+    </span>
+    </center>
+</div>
+
+
+{% endblock %}
