@@ -3,3 +3,7 @@ db.sqlite3
 */migrations/
 Blog/migrations/__pycache__/*
 BloggingApp/__pycache__/*
+
+Blog/__pycache__/
+
+.idea/
